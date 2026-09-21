@@ -13,17 +13,13 @@ constraint? The repository contains a synthetic access-management environment, a
 repair. It is research software, not deployment guidance.
 
 ```mermaid
-flowchart LR
-    A[Valid configuration shift] --> B{Discovery condition}
-    B -->|C0| C[No rule access]
-    B -->|C1| D[Frozen rules]
-    B -->|C2| E[Current rules]
-    C --> F[Agent actions]
-    D --> F
-    E --> F
-    F --> G[Synthetic engine]
-    G --> H[CSTS verdict]
-    H --> I[Archive and deterministic checks]
+flowchart TD
+    A["Install a valid configuration shift"]
+    B["Apply one information condition<br/>C0: no discovery tools<br/>C1: baseline rules<br/>C2: active-world rules"]
+    C["Agent acts in the synthetic world"]
+    D["Score the final state<br/>Goal + hard constraints = CSTS"]
+    E["Archive, replay, and recomputation"]
+    A --> B --> C --> D --> E
 ```
 
 Constraint-Safe Task Success (CSTS) requires both the requested goal and every stated hard
