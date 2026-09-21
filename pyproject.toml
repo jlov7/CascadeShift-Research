@@ -1,0 +1,62 @@
+[project]
+name = "cascadeshift"
+version = "1.3.0"
+description = "A reproducible synthetic research prototype for configuration-aware task evaluation"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Jason Lovell" }]
+keywords = ["agent evaluation", "synthetic environments", "reproducible research"]
+classifiers = ["Development Status :: 3 - Alpha", "Intended Audience :: Science/Research", "License :: OSI Approved :: Apache Software License", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3.12", "Programming Language :: Python :: 3.13", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
+dependencies = ["pydantic>=2.7,<3", "typer>=0.12,<1", "pyyaml>=6,<7"]
+
+[project.urls]
+Homepage = "https://github.com/jlov7/CascadeShift-Research"
+Documentation = "https://github.com/jlov7/CascadeShift-Research/tree/main/docs"
+Issues = "https://github.com/jlov7/CascadeShift-Research/issues"
+Repository = "https://github.com/jlov7/CascadeShift-Research"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "hypothesis>=6.100,<7", "ruff>=0.5,<1", "mypy>=1.10,<3", "types-PyYAML>=6,<7"]
+build = ["hatchling==1.32.0"]
+
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cascadeshift"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/cascadeshift/_resources/worlds/baseline/world.yaml" = "cascadeshift/_resources/worlds/baseline/world.yaml"
+
+[tool.hatch.build.targets.sdist]
+include = ["/.editorconfig", "/.gitattributes", "/.github/workflows/ci.yml", "/.gitignore", "/.python-version", "/CHANGELOG.md", "/CITATION.cff", "/CODE_OF_CONDUCT.md", "/CONTRIBUTING.md", "/DISCLAIMER.md", "/LICENSE", "/Makefile", "/PROVENANCE.md", "/README.md", "/RELEASING.md", "/REPRODUCIBILITY.md", "/RESULTS.md", "/SECURITY.md", "/TECHNICAL-NOTE.md", "/artifacts/results/confirmatory", "/development", "/docs", "/examples", "/protocol/README.md", "/protocol/freeze_manifest.json", "/protocol/freeze_manifest.sha256", "/protocol/preregistration.md", "/pyproject.toml", "/scripts", "/src", "/tasks", "/tests", "/uv.lock", "/worlds"]
+exclude = ["/.env*", "/.claude", "/build", "/dist", "/**/__pycache__", "/**/*.pyc"]
+
+[project.scripts]
+cascadeshift = "cascadeshift.cli:app"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+markers = ["slow: longer deterministic corpus checks"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests", "development", "examples", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "W"]
+ignore = ["SIM108", "E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = "cascadeshift.cli"
+disallow_untyped_defs = false
+disable_error_code = ["type-arg", "arg-type", "index", "attr-defined", "union-attr", "assignment", "var-annotated", "no-untyped-def"]

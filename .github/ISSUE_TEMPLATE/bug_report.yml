@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible problem in the bounded synthetic harness.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Use a small synthetic example. Omit credentials, personal data, and sensitive output.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: State the smallest reproducible problem and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the command, nonsecret environment details, and relevant version.
+    validations:
+      required: true

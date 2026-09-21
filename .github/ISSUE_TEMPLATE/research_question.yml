@@ -1,0 +1,22 @@
+name: Research question
+description: Ask about the historical evidence or a possible future study.
+title: "research: "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: Historical evidence is bounded and inconclusive; do not post private data or provider credentials.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Identify the specific archive, protocol, or claim-boundary question.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence needed
+      description: Describe the calculation, implementation detail, or additional evidence that would resolve the question. Reanalysis and challenges to the interpretation are welcome.
+    validations:
+      required: true

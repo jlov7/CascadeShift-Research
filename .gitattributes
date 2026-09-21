@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+artifacts/**/*.html linguist-generated=true
+artifacts/**/*.json linguist-generated=true
+tasks/*/split.json linguist-generated=true
+worlds/generated/** linguist-generated=true

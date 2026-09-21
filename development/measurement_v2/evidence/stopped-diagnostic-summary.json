@@ -1,0 +1,41 @@
+{
+  "schema": "cascadeshift.measurement-v2.stopped-diagnostic-summary/v1",
+  "source_status": "source-derived account; raw records are not public or independently reproduced model data",
+  "scope": "A stopped development diagnostic, retained separately from the v1 study.",
+  "case_count": 6,
+  "planned_cells": 18,
+  "recorded_episode_records": 7,
+  "terminally_scored_records": 6,
+  "recorded_provider_request_count": 15,
+  "reported_completion_tokens_for_accepted_records": 1626,
+  "rejected_response_usage": "unknown",
+  "terminal_business_actions": 0,
+  "terminal_record_mechanisms": {
+    "mixed_finish_batch_records": 4,
+    "prose_only_terminal_records": 2,
+    "seventh_record": "stopped at tool_call_limit_exceeded"
+  },
+  "runtime_account": {
+    "provider": "Ollama local runtime",
+    "model_alias": "llama3.1:8b"
+  },
+  "stop_reason": "provider_error:tool_call_limit_exceeded",
+  "claim_boundary": "All numbers are source-derived and cannot be verified from public raw data. This record does not establish a model effect, null effect, replication, or a v1 result.",
+  "transformation": {
+    "excluded": [
+      "raw provider record",
+      "provider endpoint and model settings",
+      "machine paths",
+      "operator fields",
+      "tool responses"
+    ],
+    "retained": [
+      "six-case construction and interface code",
+      "record counts",
+      "stop reason",
+      "scope and claim boundary"
+    ],
+    "parent_raw_sha256": "fafbebedd504813160d9d9662bc8512dbf6d86778664272cd7788cd12ce0e0d1",
+    "checksum_scope": "The checksum identifies the non-public source record but cannot independently verify material that is not included."
+  }
+}

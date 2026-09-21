@@ -1,0 +1,1216 @@
+{
+  "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+  "cases": [
+    {
+      "alternative_plan_hash": "85cc97db8f2eef948e04a30bd80318d464dc1c2c09099fb480525258f44279fe",
+      "baseline_plan_hash": "36659b356873b00b246258256b749b95a162e800ca9ee7511db3d5849dd903e5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VPN to E-001; routine request, keep payroll.",
+      "family": "F6_negative_control",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0019",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0001",
+      "shift_params": {
+        "application_id": "APP-VPN",
+        "kind": "change_application_risk",
+        "new_value": 70
+      },
+      "shifted_world_hash": "0c991accdc933277afa38d580d5e49bafad2cb0763c1410e047f91d8380de610",
+      "task_id": "S-0001",
+      "title": "Routine Remote Connect for Ada",
+      "visible_goal": [
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "4009c115df5279cb4aabcad2693832ed2b4601e687ccdd1398d8b6b799917785",
+      "baseline_plan_hash": "55ffc1a6ebf6cc5433e99e50da0fdd090141e48f223b557d1c08c1ddcb06ec59",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-CRM to E-003 while keeping the Shared Service Desk.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-003",
+          "kind": "entitlement_absent"
+        }
+      ],
+      "parent_task_id": "T-C-0002",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0002",
+      "shift_params": {
+        "application_id": "APP-CRM",
+        "kind": "change_application_risk",
+        "new_value": 70
+      },
+      "shifted_world_hash": "542d57f90b256cc7c8a7e20b46b86c39f09bba5e232c92cd22c5eaaf60735602",
+      "task_id": "S-0002",
+      "title": "Add CRM Lite for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "cd74db2c5a5542a89676f5e0d015afbd049755c64bf2ad5d0a831f8c7e8d4217",
+      "baseline_plan_hash": "c3edd1fb330ea4c0440ac7baf1ab27ebab3301518a747e54e69fcf0ff6c30024",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-PAY to E-002 with clearance intact.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        },
+        {
+          "employee_id": "E-002",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0004",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "approval_policy",
+      "shift_id": "SH-0003",
+      "shift_params": {
+        "application_id": "APP-PAY",
+        "kind": "change_bundle_membership",
+        "requires_security_review": true
+      },
+      "shifted_world_hash": "1dfa8c01e3a02f66d846e19fc1284a55b2c85fffd2454fa33ba80b8f629207b7",
+      "task_id": "S-0003",
+      "title": "Payroll Hub for Ben",
+      "visible_goal": [
+        {
+          "application_id": "APP-PAY",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "9a0f0c5ec85ff95c0b2777d78aa6be9f53f90d7d8e35dc0d7520572b684112ac",
+      "baseline_plan_hash": "55ffc1a6ebf6cc5433e99e50da0fdd090141e48f223b557d1c08c1ddcb06ec59",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-CRM to E-003 while keeping the Shared Service Desk.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-003",
+          "kind": "entitlement_absent"
+        }
+      ],
+      "parent_task_id": "T-C-0002",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0004",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1058"
+      },
+      "shifted_world_hash": "ccf8d90a60dc68e335027ee5f0562e9d91a17b0d50e75e2e1390b5658595e6ee",
+      "task_id": "S-0004",
+      "title": "Add CRM Lite for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "a9557923a67aea6377294a400fb08304b4609c3b3201c3cc864c68293e6d2354",
+      "baseline_plan_hash": "36659b356873b00b246258256b749b95a162e800ca9ee7511db3d5849dd903e5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VPN to E-001 while she keeps Payroll Hub access.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        },
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-001",
+          "kind": "entitlement_absent"
+        }
+      ],
+      "parent_task_id": "T-C-0003",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "approval_policy",
+      "shift_id": "SH-0005",
+      "shift_params": {
+        "application_id": "APP-VPN",
+        "kind": "change_bundle_membership",
+        "requires_security_review": true
+      },
+      "shifted_world_hash": "7a463220d201c88e9ad54322473f5c3e8bb87ff8f063ac8b386d35b2977ffcb5",
+      "task_id": "S-0005",
+      "title": "Remote Connect for Ada",
+      "visible_goal": [
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "6baf48cd9e314db7dd473ae6de8ff342284c9b2ffadc40b8664f375518df1c8e",
+      "baseline_plan_hash": "47f9441d978114158d7eb9da4674e49ebee739d8cc6e13d6faf38293b407f696",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Complete onboarding for E-001 and grant APP-VPN.",
+      "family": "F4_escalation_free_onboarding",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "risk_load_below",
+          "value": 80
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "clearance_at_least",
+          "level": 3
+        }
+      ],
+      "parent_task_id": "T-C-0014",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "threshold",
+      "shift_id": "SH-0006",
+      "shift_params": {
+        "kind": "change_numeric_threshold",
+        "new_value": 40,
+        "target": "policy"
+      },
+      "shifted_world_hash": "84c120b67f1f44dcfbdbba0b171a3b9b02d242d0d0ce7399973e846b15727e08",
+      "task_id": "S-0006",
+      "title": "Finish Ada's onboarding with Remote Connect",
+      "visible_goal": [
+        {
+          "employee_id": "E-001",
+          "kind": "status_is",
+          "status": "active"
+        },
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "85cc97db8f2eef948e04a30bd80318d464dc1c2c09099fb480525258f44279fe",
+      "baseline_plan_hash": "36659b356873b00b246258256b749b95a162e800ca9ee7511db3d5849dd903e5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VPN to E-001; routine request, keep payroll.",
+      "family": "F6_negative_control",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0019",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0007",
+      "shift_params": {
+        "application_id": "APP-VPN",
+        "kind": "change_application_risk",
+        "new_value": 75
+      },
+      "shifted_world_hash": "7cc8aa334be51c45fec71dfd522039c58924eefefcc7ad4fe199a6d2d45dbf7e",
+      "task_id": "S-0007",
+      "title": "Routine Remote Connect for Ada",
+      "visible_goal": [
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "6baf48cd9e314db7dd473ae6de8ff342284c9b2ffadc40b8664f375518df1c8e",
+      "baseline_plan_hash": "47f9441d978114158d7eb9da4674e49ebee739d8cc6e13d6faf38293b407f696",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Complete onboarding for E-001 and grant APP-VPN.",
+      "family": "F4_escalation_free_onboarding",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "risk_load_below",
+          "value": 80
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "clearance_at_least",
+          "level": 3
+        }
+      ],
+      "parent_task_id": "T-C-0014",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "threshold",
+      "shift_id": "SH-0008",
+      "shift_params": {
+        "kind": "change_numeric_threshold",
+        "new_value": 60,
+        "target": "policy"
+      },
+      "shifted_world_hash": "8e931c0c60dcafb5355691c0d96b4f364aeedb13ae44a203820c8f0f1f3d8858",
+      "task_id": "S-0008",
+      "title": "Finish Ada's onboarding with Remote Connect",
+      "visible_goal": [
+        {
+          "employee_id": "E-001",
+          "kind": "status_is",
+          "status": "active"
+        },
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "47b62a9f1fbf6f4941a42ded74396cd1c3d60430dc64cd87d9e564e271a899c3",
+      "baseline_plan_hash": "fd551f2a418f8050906fbc91eb68f1683d99300cc5d0719de44e3b4fd97563de",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VIP to E-003 without creating a conflicting combination.",
+      "family": "F3_conflict_before_high_risk",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0009",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "cross_entity_dependency",
+      "shift_id": "SH-0009",
+      "shift_params": {
+        "application_a": "APP-VIP",
+        "application_b": "APP-SHR",
+        "kind": "add_conflict_pair"
+      },
+      "shifted_world_hash": "8ea5d97c8f5d1ad03599925ca562b2b49940382be9f1f9230416a9919828f623",
+      "task_id": "S-0009",
+      "title": "Vault Analytics for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-VIP",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "cabe3b68025aa1789c916fdca4b426475a3b43a6019a156889d00c8888cb2160",
+      "baseline_plan_hash": "012654bbc5fd9d5baafc1d3c02126f70b43dcdad4c1b2359c81a7d8799c84798",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-03 to E-002 and ensure Payroll Hub coverage.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0005",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "approval_policy",
+      "shift_id": "SH-0010",
+      "shift_params": {
+        "kind": "change_approval_mode",
+        "mode": "security_review"
+      },
+      "shifted_world_hash": "9489a5bb626160b59c4d326e91f171ee14e97cd2d4fe8db74d170ef50eea233e",
+      "task_id": "S-0010",
+      "title": "Move Ben into Finance Administration",
+      "visible_goal": [
+        {
+          "employee_id": "E-002",
+          "kind": "role_is",
+          "role_id": "RL-03"
+        },
+        {
+          "application_id": "APP-PAY",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "ecd8773622c4cbd469d802f448ad13fd9522a43585ba88f7d2ca63e97af91d3d",
+      "baseline_plan_hash": "3c64a0d17b5cf76f2e374e9ea9d68d472bdcaf2ec2ac0f4a76203dd9f946e601",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-CRM to E-001 while she keeps Payroll Hub access.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0001",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "approval_policy",
+      "shift_id": "SH-0011",
+      "shift_params": {
+        "application_id": "APP-CRM",
+        "kind": "change_bundle_membership",
+        "requires_security_review": true
+      },
+      "shifted_world_hash": "6424790e7b67a79e6757d0c1f8f4c8435840f4f030d51fa99fd238439b58022d",
+      "task_id": "S-0011",
+      "title": "Equip Ada with CRM Lite",
+      "visible_goal": [
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "57a86e0c56fb22ae048f65c2fd1b498f9f9fec81b52ba5c8e8c8ee74c72e3411",
+      "baseline_plan_hash": "012654bbc5fd9d5baafc1d3c02126f70b43dcdad4c1b2359c81a7d8799c84798",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-03 to E-002 and ensure Payroll Hub coverage.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0005",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0012",
+      "shift_params": {
+        "kind": "change_required_clearance",
+        "new_value": 3,
+        "role_id": "RL-02"
+      },
+      "shifted_world_hash": "80cf10d010ddea03e0bf6437327c6c6609f58d897cf6b33dc6ef15d64e1c3a4c",
+      "task_id": "S-0012",
+      "title": "Move Ben into Finance Administration",
+      "visible_goal": [
+        {
+          "employee_id": "E-002",
+          "kind": "role_is",
+          "role_id": "RL-03"
+        },
+        {
+          "application_id": "APP-PAY",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "e648e4cc623d16070b480e16ae25f390317394b747c748b9dd9626010e499b44",
+      "baseline_plan_hash": "071d927e53c8b02a9df663733b9129c924d1991f8827fb59071b2d82b17b8097",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Offboard contractor E-004 while E-003 keeps the Shared Service Desk.",
+      "family": "F5_offboard_shared_service",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0015",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0013",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1122"
+      },
+      "shifted_world_hash": "e0a132434f1223a287f88e9833f2001dd3627056eb3165b7f6237d54b01c8a0d",
+      "task_id": "S-0013",
+      "title": "Offboard Dana, keep the desk running",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "status_is",
+          "status": "inactive"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "8a7d52238a43bfdce7bd3870ae54f79afd741a19dc4d351d4c4b54419cfebf36",
+      "baseline_plan_hash": "87382fc985b03e1f2864f4d20bb2833f9d9ff1e053fe9dfa370515df8daf2f83",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VIP to E-001 without creating a conflicting combination.",
+      "family": "F3_conflict_before_high_risk",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0010",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0014",
+      "shift_params": {
+        "application_id": "APP-VIP",
+        "kind": "change_application_risk",
+        "new_value": 5
+      },
+      "shifted_world_hash": "3d773e71cd1b258f7b113dd5d6c1db68251c5fe557a39c84d5aa270879030352",
+      "task_id": "S-0014",
+      "title": "Vault Analytics for Ada",
+      "visible_goal": [
+        {
+          "application_id": "APP-VIP",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": "99979e1f52e5dc163086f941c88b66da17162d89a363c5b08dfd9decddfa8f49",
+      "baseline_plan_hash": "e11de3c527d5b422d83f4d218907995aecadfe3ba48ec75c35e666a8a773f0a6",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-BID to E-003 without creating a conflicting combination.",
+      "family": "F3_conflict_before_high_risk",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0011",
+      "plan_effect": "plan_invalidating",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0015",
+      "shift_params": {
+        "application_id": "APP-BID",
+        "kind": "change_application_risk",
+        "new_value": 5
+      },
+      "shifted_world_hash": "749370efe3021ea1a43768b5408e9d8cd158ba28a6aa432dab39c2c38bf21b25",
+      "task_id": "S-0015",
+      "title": "Bid Workspace for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "bec6af3ea6201d7ec340ea4feca067e74a999883f51093cd51df4f18e96fb169",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Complete onboarding for E-004 and grant APP-VPN.",
+      "family": "F4_escalation_free_onboarding",
+      "hard_constraints": [
+        {
+          "employee_id": "E-004",
+          "kind": "risk_load_below",
+          "value": 80
+        },
+        {
+          "employee_id": "E-004",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0013",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_order",
+      "shift_id": "SH-0016",
+      "shift_params": {
+        "kind": "change_rule_priority",
+        "new_priority": 55,
+        "rule_id": "R-1019"
+      },
+      "shifted_world_hash": "0564be5c8b4de6d193449bcc747d0d1bbe25679966d8e8bc3c23cc73d260bc0c",
+      "task_id": "S-0016",
+      "title": "Finish Dana's onboarding with Remote Connect",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "status_is",
+          "status": "active"
+        },
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-004",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "3c64a0d17b5cf76f2e374e9ea9d68d472bdcaf2ec2ac0f4a76203dd9f946e601",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-CRM to E-001 while she keeps Payroll Hub access.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0001",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0017",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1026"
+      },
+      "shifted_world_hash": "8b98439287589509059d280ec893f810ffaf384dc4dc6a3c9c14c97a63b0a0bd",
+      "task_id": "S-0017",
+      "title": "Equip Ada with CRM Lite",
+      "visible_goal": [
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "9b9cc4123fad21b032e33d0c2acff8eec8567f6fa38c4de8ae7d2526d187d1c5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-01 to E-002 and ensure CRM Lite coverage.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0007",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0018",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1099"
+      },
+      "shifted_world_hash": "f01542b0302b0ffb3f395a746842003b04bbf193d89a08ed347d9f80125fcc16",
+      "task_id": "S-0018",
+      "title": "Ben becomes an Analyst",
+      "visible_goal": [
+        {
+          "employee_id": "E-002",
+          "kind": "role_is",
+          "role_id": "RL-01"
+        },
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "234f081442b43677aecc3de800b38d6e3a90897f6e103d5174552416369a0b2c",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VPN to E-003; routine request, keep the desk.",
+      "family": "F6_negative_control",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-003",
+          "kind": "entitlement_absent"
+        }
+      ],
+      "parent_task_id": "T-C-0018",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_order",
+      "shift_id": "SH-0019",
+      "shift_params": {
+        "kind": "change_rule_priority",
+        "new_priority": 55,
+        "rule_id": "R-1060"
+      },
+      "shifted_world_hash": "3d7167f208c4a0b43d3297dc14e2f37b7a2df4f6c0715c407c65f5f2e1a4b31b",
+      "task_id": "S-0019",
+      "title": "Routine Remote Connect for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "6f770f56baa8958de3176ddbb34a9fe7a6e5db29206201a843b19daae72ea90d",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Offboard contractor E-002 while E-003 keeps the Shared Service Desk.",
+      "family": "F5_offboard_shared_service",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0016",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0020",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1018"
+      },
+      "shifted_world_hash": "26a46d5ac3a9b8f0c28a9ec88904d8e6948c37636c73207994a97d4cb63a3900",
+      "task_id": "S-0020",
+      "title": "End Ben's engagement",
+      "visible_goal": [
+        {
+          "employee_id": "E-002",
+          "kind": "status_is",
+          "status": "inactive"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "071d927e53c8b02a9df663733b9129c924d1991f8827fb59071b2d82b17b8097",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Offboard E-004 with no lingering personal remote access while E-003 keeps the desk.",
+      "family": "F5_offboard_shared_service",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        }
+      ],
+      "parent_task_id": "T-C-0017",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0021",
+      "shift_params": {
+        "kind": "disable_rule",
+        "rule_id": "R-1004"
+      },
+      "shifted_world_hash": "d55769fc6c33fd2393d362054c6036799a23be98beb05cc0a62fc0cf6fb0b4b8",
+      "task_id": "S-0021",
+      "title": "Wind down Dana completely",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "status_is",
+          "status": "inactive"
+        },
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-004",
+          "kind": "entitlement_absent"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "231409c36a0ce27ad0d9e0a0d5115f7896f770cf939985b81666b59af9ca3613",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-01 to E-004 while keeping her current service set.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-004",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR",
+            "APP-VPN"
+          ]
+        },
+        {
+          "employee_id": "E-004",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0008",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0022",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1114"
+      },
+      "shifted_world_hash": "8bd0545adbebed2c52211dcd58f9b61bcee3e7402af284b3ed2bf50a4da85eae",
+      "task_id": "S-0022",
+      "title": "Dana moves to the Analyst desk",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "role_is",
+          "role_id": "RL-01"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "e513b2946c47993888932e4425c6e281335caa76a0c7f171753c670f38563c91",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Complete onboarding for E-001 without crossing any security line.",
+      "family": "F4_escalation_free_onboarding",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "risk_load_below",
+          "value": 80
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        },
+        {
+          "employee_id": "E-001",
+          "kind": "clearance_at_least",
+          "level": 3
+        }
+      ],
+      "parent_task_id": "T-C-0012",
+      "plan_effect": "plan_preserving",
+      "shift_class": "threshold",
+      "shift_id": "SH-0023",
+      "shift_params": {
+        "kind": "change_numeric_threshold",
+        "new_value": 90,
+        "target": "policy"
+      },
+      "shifted_world_hash": "ebac0639016ebeb377af72c2999a8a9004f4213d6ba5a3482d05a7ede9054230",
+      "task_id": "S-0023",
+      "title": "Finish Ada's onboarding quietly",
+      "visible_goal": [
+        {
+          "employee_id": "E-001",
+          "kind": "status_is",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "fd8061d7e19b18dafb758219fedef3e43b5a8231e6dc2e09ebfd39ec27a06117",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-PAY to E-003; routine request, keep the desk.",
+      "family": "F6_negative_control",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "employee_id": "E-003",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0020",
+      "plan_effect": "plan_preserving",
+      "shift_class": "side_effect_expansion",
+      "shift_id": "SH-0024",
+      "shift_params": {
+        "kind": "change_role_entitlement",
+        "mandatory_applications": [
+          "APP-CRM"
+        ],
+        "role_id": "RL-02"
+      },
+      "shifted_world_hash": "0d212c76f2d34dbf2776dbff3131ef64b5236e956307fa15584ef69a591e7bf9",
+      "task_id": "S-0024",
+      "title": "Payroll Hub for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-PAY",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "fd551f2a418f8050906fbc91eb68f1683d99300cc5d0719de44e3b4fd97563de",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VIP to E-003 without creating a conflicting combination.",
+      "family": "F3_conflict_before_high_risk",
+      "hard_constraints": [
+        {
+          "employee_id": "E-003",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0009",
+      "plan_effect": "plan_preserving",
+      "shift_class": "approval_policy",
+      "shift_id": "SH-0025",
+      "shift_params": {
+        "application_id": "APP-VIP",
+        "kind": "change_bundle_membership",
+        "requires_security_review": true
+      },
+      "shifted_world_hash": "693fc53a27817d89a786757d1f92f0c304c174f5ef0bd7889a69bf65bf13e692",
+      "task_id": "S-0025",
+      "title": "Vault Analytics for Chen",
+      "visible_goal": [
+        {
+          "application_id": "APP-VIP",
+          "employee_id": "E-003",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "c3edd1fb330ea4c0440ac7baf1ab27ebab3301518a747e54e69fcf0ff6c30024",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-PAY to E-002 with clearance intact.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        },
+        {
+          "employee_id": "E-002",
+          "kind": "no_conflicting_pair"
+        }
+      ],
+      "parent_task_id": "T-C-0004",
+      "plan_effect": "plan_preserving",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0026",
+      "shift_params": {
+        "application_id": "APP-PAY",
+        "kind": "change_application_risk",
+        "new_value": 5
+      },
+      "shifted_world_hash": "2c2db1dd601b912cf610ff43f6ada19e2c1247e72bf273334f6ad8544a6f5754",
+      "task_id": "S-0026",
+      "title": "Payroll Hub for Ben",
+      "visible_goal": [
+        {
+          "application_id": "APP-PAY",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "0bdbcd131f4cf9b55815ad7d3660dbaad2793aece40b157d8e37a8909d7e4974",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-03 to E-004 while keeping her current service set.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-004",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "employee_id": "E-004",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0006",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0027",
+      "shift_params": {
+        "kind": "enable_rule",
+        "rule_id": "R-1078"
+      },
+      "shifted_world_hash": "3f7216876c18bc79f74d99037833df106df1a62a5584b26ca07a8705ddd5a98b",
+      "task_id": "S-0027",
+      "title": "Dana moves into Finance Administration",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "role_is",
+          "role_id": "RL-03"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "36659b356873b00b246258256b749b95a162e800ca9ee7511db3d5849dd903e5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Grant APP-VPN to E-001 while she keeps Payroll Hub access.",
+      "family": "F1_grant_preserve",
+      "hard_constraints": [
+        {
+          "employee_id": "E-001",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-PAY"
+          ]
+        },
+        {
+          "application_id": "APP-BID",
+          "employee_id": "E-001",
+          "kind": "entitlement_absent"
+        }
+      ],
+      "parent_task_id": "T-C-0003",
+      "plan_effect": "plan_preserving",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0028",
+      "shift_params": {
+        "kind": "change_required_clearance",
+        "new_value": 2,
+        "role_id": "RL-01"
+      },
+      "shifted_world_hash": "c10d5073725cb0e6b00cf898d1ba8db1dc3cf530fc37b28509b0c92ed38150b4",
+      "task_id": "S-0028",
+      "title": "Remote Connect for Ada",
+      "visible_goal": [
+        {
+          "application_id": "APP-VPN",
+          "employee_id": "E-001",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "9b9cc4123fad21b032e33d0c2acff8eec8567f6fa38c4de8ae7d2526d187d1c5",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-01 to E-002 and ensure CRM Lite coverage.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-002",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0007",
+      "plan_effect": "plan_preserving",
+      "shift_class": "mapping_entitlement",
+      "shift_id": "SH-0029",
+      "shift_params": {
+        "application_id": "APP-CRM",
+        "kind": "change_application_risk",
+        "new_value": 5
+      },
+      "shifted_world_hash": "25f6b9d48fc37fab1945c76b00cd58edac084d8b37880c8aef69eb1390296739",
+      "task_id": "S-0029",
+      "title": "Ben becomes an Analyst",
+      "visible_goal": [
+        {
+          "employee_id": "E-002",
+          "kind": "role_is",
+          "role_id": "RL-01"
+        },
+        {
+          "application_id": "APP-CRM",
+          "employee_id": "E-002",
+          "kind": "goal_entitlement_present"
+        }
+      ]
+    },
+    {
+      "alternative_plan_hash": null,
+      "baseline_plan_hash": "0bdbcd131f4cf9b55815ad7d3660dbaad2793aece40b157d8e37a8909d7e4974",
+      "baseline_world_hash": "b5de2cc2cb17e0eb16fc6e5618db6cdd4afdc473b95ce5c9c054b20109f464ea",
+      "description": "Assign RL-03 to E-004 while keeping her current service set.",
+      "family": "F2_role_change_retention",
+      "hard_constraints": [
+        {
+          "employee_id": "E-004",
+          "kind": "retains_all_mandatory",
+          "mandatory_applications": [
+            "APP-SHR"
+          ]
+        },
+        {
+          "employee_id": "E-004",
+          "kind": "clearance_at_least",
+          "level": 2
+        }
+      ],
+      "parent_task_id": "T-C-0006",
+      "plan_effect": "plan_preserving",
+      "shift_class": "rule_activation",
+      "shift_id": "SH-0030",
+      "shift_params": {
+        "kind": "disable_rule",
+        "rule_id": "R-1002"
+      },
+      "shifted_world_hash": "3778ad5f65f4356a772c2a79b07b8befa1b4eb47d92ffd159c66387afdf2b9d5",
+      "task_id": "S-0030",
+      "title": "Dana moves into Finance Administration",
+      "visible_goal": [
+        {
+          "employee_id": "E-004",
+          "kind": "role_is",
+          "role_id": "RL-03"
+        }
+      ]
+    }
+  ],
+  "seed": 20260822,
+  "shifted_world_hashes": [
+    "0c991accdc933277afa38d580d5e49bafad2cb0763c1410e047f91d8380de610",
+    "542d57f90b256cc7c8a7e20b46b86c39f09bba5e232c92cd22c5eaaf60735602",
+    "1dfa8c01e3a02f66d846e19fc1284a55b2c85fffd2454fa33ba80b8f629207b7",
+    "ccf8d90a60dc68e335027ee5f0562e9d91a17b0d50e75e2e1390b5658595e6ee",
+    "7a463220d201c88e9ad54322473f5c3e8bb87ff8f063ac8b386d35b2977ffcb5",
+    "84c120b67f1f44dcfbdbba0b171a3b9b02d242d0d0ce7399973e846b15727e08",
+    "7cc8aa334be51c45fec71dfd522039c58924eefefcc7ad4fe199a6d2d45dbf7e",
+    "8e931c0c60dcafb5355691c0d96b4f364aeedb13ae44a203820c8f0f1f3d8858",
+    "8ea5d97c8f5d1ad03599925ca562b2b49940382be9f1f9230416a9919828f623",
+    "9489a5bb626160b59c4d326e91f171ee14e97cd2d4fe8db74d170ef50eea233e",
+    "6424790e7b67a79e6757d0c1f8f4c8435840f4f030d51fa99fd238439b58022d",
+    "80cf10d010ddea03e0bf6437327c6c6609f58d897cf6b33dc6ef15d64e1c3a4c",
+    "e0a132434f1223a287f88e9833f2001dd3627056eb3165b7f6237d54b01c8a0d",
+    "3d773e71cd1b258f7b113dd5d6c1db68251c5fe557a39c84d5aa270879030352",
+    "749370efe3021ea1a43768b5408e9d8cd158ba28a6aa432dab39c2c38bf21b25",
+    "0564be5c8b4de6d193449bcc747d0d1bbe25679966d8e8bc3c23cc73d260bc0c",
+    "8b98439287589509059d280ec893f810ffaf384dc4dc6a3c9c14c97a63b0a0bd",
+    "f01542b0302b0ffb3f395a746842003b04bbf193d89a08ed347d9f80125fcc16",
+    "3d7167f208c4a0b43d3297dc14e2f37b7a2df4f6c0715c407c65f5f2e1a4b31b",
+    "26a46d5ac3a9b8f0c28a9ec88904d8e6948c37636c73207994a97d4cb63a3900",
+    "d55769fc6c33fd2393d362054c6036799a23be98beb05cc0a62fc0cf6fb0b4b8",
+    "8bd0545adbebed2c52211dcd58f9b61bcee3e7402af284b3ed2bf50a4da85eae",
+    "ebac0639016ebeb377af72c2999a8a9004f4213d6ba5a3482d05a7ede9054230",
+    "0d212c76f2d34dbf2776dbff3131ef64b5236e956307fa15584ef69a591e7bf9",
+    "693fc53a27817d89a786757d1f92f0c304c174f5ef0bd7889a69bf65bf13e692",
+    "2c2db1dd601b912cf610ff43f6ada19e2c1247e72bf273334f6ad8544a6f5754",
+    "3f7216876c18bc79f74d99037833df106df1a62a5584b26ca07a8705ddd5a98b",
+    "c10d5073725cb0e6b00cf898d1ba8db1dc3cf530fc37b28509b0c92ed38150b4",
+    "25f6b9d48fc37fab1945c76b00cd58edac084d8b37880c8aef69eb1390296739",
+    "3778ad5f65f4356a772c2a79b07b8befa1b4eb47d92ffd159c66387afdf2b9d5"
+  ],
+  "world_files": [
+    "worlds/generated/20260822-0001.yaml",
+    "worlds/generated/20260822-0002.yaml",
+    "worlds/generated/20260822-0003.yaml",
+    "worlds/generated/20260822-0004.yaml",
+    "worlds/generated/20260822-0005.yaml",
+    "worlds/generated/20260822-0006.yaml",
+    "worlds/generated/20260822-0007.yaml",
+    "worlds/generated/20260822-0008.yaml",
+    "worlds/generated/20260822-0009.yaml",
+    "worlds/generated/20260822-0010.yaml",
+    "worlds/generated/20260822-0011.yaml",
+    "worlds/generated/20260822-0012.yaml",
+    "worlds/generated/20260822-0013.yaml",
+    "worlds/generated/20260822-0014.yaml",
+    "worlds/generated/20260822-0015.yaml",
+    "worlds/generated/20260822-0016.yaml",
+    "worlds/generated/20260822-0017.yaml",
+    "worlds/generated/20260822-0018.yaml",
+    "worlds/generated/20260822-0019.yaml",
+    "worlds/generated/20260822-0020.yaml",
+    "worlds/generated/20260822-0021.yaml",
+    "worlds/generated/20260822-0022.yaml",
+    "worlds/generated/20260822-0023.yaml",
+    "worlds/generated/20260822-0024.yaml",
+    "worlds/generated/20260822-0025.yaml",
+    "worlds/generated/20260822-0026.yaml",
+    "worlds/generated/20260822-0027.yaml",
+    "worlds/generated/20260822-0028.yaml",
+    "worlds/generated/20260822-0029.yaml",
+    "worlds/generated/20260822-0030.yaml"
+  ]
+}

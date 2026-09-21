@@ -1,0 +1,2209 @@
+world_id: world-baseline-v1
+description: Employee onboarding and application-access management baseline.
+policy:
+  risk_threshold: 80
+  clearance_floor: 2
+  approval_mode: auto
+applications:
+- application_id: APP-PAY
+  name: Payroll Hub
+  risk_score: 10
+  requires_security_review: false
+- application_id: APP-CRM
+  name: CRM Lite
+  risk_score: 45
+  requires_security_review: false
+- application_id: APP-VIP
+  name: Vault Analytics
+  risk_score: 60
+  requires_security_review: false
+- application_id: APP-SHR
+  name: Shared Service Desk
+  risk_score: 15
+  requires_security_review: false
+- application_id: APP-VPN
+  name: Remote Connect
+  risk_score: 75
+  requires_security_review: false
+- application_id: APP-BID
+  name: Bid Workspace
+  risk_score: 55
+  requires_security_review: false
+roles:
+- role_id: RL-01
+  title: Analyst
+  mandatory_applications:
+  - APP-CRM
+  clearance_required: 3
+- role_id: RL-02
+  title: Contractor
+  mandatory_applications: []
+  clearance_required: 2
+- role_id: RL-03
+  title: Finance Administrator
+  mandatory_applications:
+  - APP-PAY
+  clearance_required: 4
+- role_id: RL-04
+  title: Support Engineer
+  mandatory_applications:
+  - APP-SHR
+  clearance_required: 2
+conflict_pairs:
+- application_a: APP-PAY
+  application_b: APP-VIP
+- application_a: APP-SHR
+  application_b: APP-BID
+employees:
+- employee_id: E-001
+  name: Ada Marsh
+  role_id: RL-02
+  status: onboarding
+  is_contractor: false
+  clearance: 4
+  risk_load: 20
+  entitlements:
+  - APP-PAY
+- employee_id: E-002
+  name: Ben Ortega
+  role_id: RL-02
+  status: active
+  is_contractor: true
+  clearance: 2
+  risk_load: 0
+  entitlements: []
+- employee_id: E-003
+  name: Chen Wu
+  role_id: RL-01
+  status: active
+  is_contractor: false
+  clearance: 3
+  risk_load: 10
+  entitlements:
+  - APP-SHR
+- employee_id: E-004
+  name: Dana Iyer
+  role_id: RL-04
+  status: onboarding
+  is_contractor: true
+  clearance: 2
+  risk_load: 5
+  entitlements:
+  - APP-SHR
+  - APP-VPN
+rules:
+- rule_id: R-1001
+  title: Remote work starter kit
+  description: Contractor role moves include the standard remote kit.
+  trigger: role_assigned
+  conditions:
+  - kind: employee_is_contractor
+  effects:
+  - kind: grant_entitlement
+    application_id: APP-VPN
+  priority: 50
+  status: active
+  provenance:
+    owner: it-facilities
+    effective_date: '2026-08-20'
+    source: IT-POL-201
+- rule_id: R-1002
+  title: Helpdesk Ledger control
+  description: Standard helpdesk ledger handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 53
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1003
+  title: Legacy discount retirement
+  description: Superseded variant of the mid-tier discount retained for audit.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 45
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -10
+  priority: 40
+  status: superseded
+  provenance:
+    owner: it-legacy
+    effective_date: '2026-08-14'
+    source: IT-POL-099A
+- rule_id: R-1004
+  title: Mailroom Notification control
+  description: Standard mailroom notification handling applied automatically when
+    related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 26
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1005
+  title: Segregation of duties guard
+  description: Holding payroll while taking on heavier services is not permitted.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 55
+  - kind: employee_has_entitlement
+    application_id: APP-PAY
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-PAY
+  priority: 84
+  status: active
+  provenance:
+    owner: finance-controls
+    effective_date: '2026-10-22'
+    source: FIN-POL-031
+- rule_id: R-1006
+  title: Studio Ledger control
+  description: Standard studio ledger handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 32
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1007
+  title: Facilities Notification control
+  description: Standard facilities notification handling applied automatically when
+    related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 54
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1008
+  title: Invoice Review Cycle control
+  description: Standard invoice review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 35
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1009
+  title: Library Notification control
+  description: Standard library notification handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 37
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1010
+  title: Procurement Ledger control
+  description: Standard procurement ledger handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 37
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1011
+  title: Travel Notification control
+  description: Standard travel notification handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 39
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1012
+  title: Records Audit Trail archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 22
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-950
+- rule_id: R-1013
+  title: Archive Review Cycle control
+  description: Standard archive review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 29
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1014
+  title: Payroll floor at start
+  description: New starters below the role requirement cannot retain payroll.
+  trigger: onboarding_completed
+  conditions:
+  - kind: clearance_below_role_required
+  - kind: employee_has_entitlement
+    application_id: APP-PAY
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-PAY
+  priority: 70
+  status: active
+  provenance:
+    owner: payroll
+    effective_date: '2026-10-07'
+    source: FIN-POL-022
+- rule_id: R-1015
+  title: Print Escalation Ladder control
+  description: Standard print escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 46
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1016
+  title: Mentorship Notification control
+  description: Standard mentorship notification handling applied automatically when
+    related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 44
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1017
+  title: Archive Ledger control
+  description: Standard archive ledger handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 39
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1018
+  title: Threshold companion sweep
+  description: Above-threshold people also lose remote connectivity until reviewed.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-VPN
+  priority: 65
+  status: inactive
+  provenance:
+    owner: security
+    effective_date: '2026-10-04'
+    source: SEC-POL-150
+- rule_id: R-1019
+  title: Threshold compliance gate
+  description: Aligns clearance with the floor when the cumulative load crosses the
+    tenant threshold.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 80
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-06-06'
+    source: SEC-POL-114
+- rule_id: R-1020
+  title: Desk tool cleanup
+  description: Leavers lose the shared desk utility from their personal profile.
+  trigger: employee_offboarded
+  conditions:
+  - kind: always
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-SHR
+  priority: 90
+  status: active
+  provenance:
+    owner: service-desk
+    effective_date: '2026-02-11'
+    source: SD-POL-018
+- rule_id: R-1021
+  title: Post-release recovery
+  description: Heavy users recover standard clearance after releasing capacity.
+  trigger: access_revoked
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 80
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-02-23'
+    source: SEC-POL-106
+- rule_id: R-1022
+  title: Badge Ledger control
+  description: Standard badge ledger handling applied automatically when related activity
+    is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 52
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1023
+  title: Contractor role surcharge
+  description: External staff carry additional load when moved into a new role.
+  trigger: role_assigned
+  conditions:
+  - kind: employee_is_contractor
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 25
+  priority: 80
+  status: active
+  provenance:
+    owner: vendor-mgmt
+    effective_date: '2026-04-16'
+    source: VM-POL-007
+- rule_id: R-1024
+  title: Studio Escalation Ladder control
+  description: Standard studio escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 42
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1025
+  title: Cafeteria Review Cycle control
+  description: Standard cafeteria review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 40
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1026
+  title: Role mapping expansion
+  description: Role moves include the bid workspace mapping.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: grant_entitlement
+    application_id: APP-BID
+  priority: 60
+  status: inactive
+  provenance:
+    owner: hr-systems
+    effective_date: '2026-04-10'
+    source: HR-POL-072
+- rule_id: R-1027
+  title: Cumulative risk accounting
+  description: Adds the granted service risk weight to the person's cumulative load.
+  trigger: access_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: event_app_risk
+    value: 0
+  priority: 90
+  status: active
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-04-04'
+    source: SEC-POL-100
+- rule_id: R-1028
+  title: Wellness Notification control
+  description: Standard wellness notification handling applied automatically when
+    related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 28
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1029
+  title: Studio Capacity Plan archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 24
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-09-21'
+    source: GOV-POL-950
+- rule_id: R-1030
+  title: Mailroom Review Cycle control
+  description: Standard mailroom review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 36
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1031
+  title: Procurement Review Cycle control
+  description: Standard procurement review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 27
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1032
+  title: Print Notification archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 26
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-03-27'
+    source: GOV-POL-950
+- rule_id: R-1033
+  title: Travel Ledger control
+  description: Standard travel ledger handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 29
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1034
+  title: Release credit
+  description: Returning capacity reduces the cumulative load slightly.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -5
+  priority: 90
+  status: active
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-12-21'
+    source: SEC-POL-105
+- rule_id: R-1035
+  title: Legal-Hold Notification control
+  description: Standard legal-hold notification handling applied automatically when
+    related activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 31
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1036
+  title: Light service surcharge
+  description: Nominal load added for ordinary services beyond the base tier.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 5
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 2
+  priority: 30
+  status: active
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-10-19'
+    source: SEC-POL-104
+- rule_id: R-1037
+  title: Library Ledger control
+  description: Standard library ledger handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 27
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1038
+  title: Bid desk eligibility
+  description: Bid vault provisioning requires clearance alignment before use.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 50
+  - kind: clearance_below_role_required
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-BID
+  priority: 76
+  status: active
+  provenance:
+    owner: sales-ops
+    effective_date: '2026-12-24'
+    source: SO-POL-012
+- rule_id: R-1039
+  title: Helpdesk Review Cycle control
+  description: Standard helpdesk review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 43
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1040
+  title: Post-move gate check
+  description: Re-checks the tenant threshold after any role move.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 70
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-06-18'
+    source: SEC-POL-118
+- rule_id: R-1041
+  title: Legacy mid-tier discount
+  description: Older pricing pilot reduced load for mid-tier services.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 45
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -10
+  priority: 40
+  status: active
+  provenance:
+    owner: it-legacy
+    effective_date: '2026-04-01'
+    source: IT-POL-099
+- rule_id: R-1042
+  title: Invoice Ledger control
+  description: Standard invoice ledger handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 45
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1043
+  title: Parking Escalation Ladder control
+  description: Standard parking escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 53
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1044
+  title: Print Ledger control
+  description: Standard print ledger handling applied automatically when related activity
+    is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 36
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1045
+  title: Cafeteria Notification control
+  description: Standard cafeteria notification handling applied automatically when
+    related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 30
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1046
+  title: Library Review Cycle control
+  description: Standard library review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 47
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1047
+  title: Badge Notification control
+  description: Standard badge notification handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 32
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1048
+  title: Travel Escalation Ladder control
+  description: Standard travel escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 39
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1049
+  title: Mailroom Notification archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 26
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-950
+- rule_id: R-1050
+  title: Training Ledger control
+  description: Standard training ledger handling applied automatically when related
+    activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 30
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1051
+  title: Cafeteria Ledger control
+  description: Standard cafeteria ledger handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 50
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1052
+  title: Helpdesk Notification control
+  description: Standard helpdesk notification handling applied automatically when
+    related activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 33
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1053
+  title: Alumni Seasonal Window archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 21
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-06-06'
+    source: GOV-POL-950
+- rule_id: R-1054
+  title: Training Review Cycle archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 28
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-02-14'
+    source: GOV-POL-950
+- rule_id: R-1055
+  title: Badge Review Cycle control
+  description: Standard badge review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 42
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1056
+  title: Facilities Review Cycle control
+  description: Standard facilities review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 34
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1057
+  title: Procurement Notification control
+  description: Standard procurement notification handling applied automatically when
+    related activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 47
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1058
+  title: Suite bundling expansion
+  description: Provisioning mid-tier services pulls in the bid workspace bundle.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 10
+  - kind: employee_lacks_entitlement
+    application_id: APP-BID
+  effects:
+  - kind: grant_entitlement
+    application_id: APP-BID
+  priority: 62
+  status: inactive
+  provenance:
+    owner: sales-ops
+    effective_date: '2026-12-06'
+    source: SO-POL-040
+- rule_id: R-1059
+  title: Parking Notification control
+  description: Standard parking notification handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 53
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1060
+  title: Onboarding threshold gate
+  description: Clearance aligns to the floor when completion crosses the threshold.
+  trigger: onboarding_completed
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 80
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-08-05'
+    source: SEC-POL-131
+- rule_id: R-1061
+  title: Pay confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 91
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-PAY
+- rule_id: R-1062
+  title: Archive Retention Rule archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 25
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-02-26'
+    source: GOV-POL-950
+- rule_id: R-1063
+  title: Cafeteria Escalation Ladder control
+  description: Standard cafeteria escalation ladder handling applied automatically
+    when related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 30
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1064
+  title: Invoice Reminder Schedule archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 23
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-12-12'
+    source: GOV-POL-950
+- rule_id: R-1065
+  title: Helpdesk Ledger archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 27
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-09-09'
+    source: GOV-POL-950
+- rule_id: R-1066
+  title: Training Notification control
+  description: Standard training notification handling applied automatically when
+    related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 40
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1067
+  title: Procurement Escalation Ladder archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 29
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-950
+- rule_id: R-1068
+  title: Vpn confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 87
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-VPN
+- rule_id: R-1069
+  title: Legal-Hold Seasonal Window archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 21
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-02-02'
+    source: GOV-POL-950
+- rule_id: R-1070
+  title: Invoice Notification control
+  description: Standard invoice notification handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 25
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1071
+  title: Wellness Review Cycle control
+  description: Standard wellness review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 38
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1072
+  title: Legal-Hold Ledger control
+  description: Standard legal-hold ledger handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 51
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1073
+  title: Mailroom Ledger control
+  description: Standard mailroom ledger handling applied automatically when related
+    activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 46
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1074
+  title: Facilities Quota archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 20
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-12-24'
+    source: GOV-POL-950
+- rule_id: R-1075
+  title: Invoice Escalation Ladder control
+  description: Standard invoice escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 25
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1076
+  title: Wellness Ledger control
+  description: Standard wellness ledger handling applied automatically when related
+    activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 48
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1077
+  title: Starter connectivity kit
+  description: Contractors finishing onboarding receive the standard remote starter
+    set.
+  trigger: onboarding_completed
+  conditions:
+  - kind: employee_is_contractor
+  effects:
+  - kind: grant_entitlement
+    application_id: APP-VPN
+  priority: 50
+  status: active
+  provenance:
+    owner: it-facilities
+    effective_date: '2026-12-09'
+    source: IT-POL-203
+- rule_id: R-1078
+  title: Contractor connectivity review
+  description: Second-person confirmation applies before external staff receive remote
+    connectivity.
+  trigger: access_granted
+  conditions:
+  - kind: employee_is_contractor
+  - kind: event_application_risk_above
+    value: 10
+  effects:
+  - kind: require_security_review
+  priority: 88
+  status: inactive
+  provenance:
+    owner: vendor-mgmt
+    effective_date: '2026-08-02'
+    source: VM-POL-019
+- rule_id: R-1079
+  title: Studio Notification control
+  description: Standard studio notification handling applied automatically when related
+    activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 42
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1080
+  title: Alumni Escalation Ladder control
+  description: Standard alumni escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 51
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1081
+  title: Labs Review Cycle control
+  description: Standard labs review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 45
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1082
+  title: Travel Retention Rule archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 25
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-950
+- rule_id: R-1083
+  title: Vip confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 89
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-VIP
+- rule_id: R-1084
+  title: Labs Escalation Ladder control
+  description: Standard labs escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 35
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1085
+  title: Risky onboarding lock
+  description: Disables the legacy discount when onboarding completes above the threshold.
+  trigger: onboarding_completed
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: disable_rule
+    rule_id: R-1041
+  priority: 88
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-02-26'
+    source: SEC-POL-130
+- rule_id: R-1086
+  title: Legal-Hold Review Cycle control
+  description: Standard legal-hold review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 41
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1087
+  title: Badge Capacity Plan archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 24
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-05-17'
+    source: GOV-POL-950
+- rule_id: R-1088
+  title: Labs Notification control
+  description: Standard labs notification handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 35
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1089
+  title: Archive Notification control
+  description: Standard archive notification handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 49
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1090
+  title: Onboarding completion load
+  description: Completing onboarding adds the standard administrative load.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 20
+  priority: 90
+  status: active
+  provenance:
+    owner: hr-systems
+    effective_date: '2026-06-03'
+    source: HR-POL-051
+- rule_id: R-1091
+  title: Mentorship Quota archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 20
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-950
+- rule_id: R-1092
+  title: Print Review Cycle control
+  description: Standard print review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 26
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1093
+  title: Mentorship Ledger control
+  description: Standard mentorship ledger handling applied automatically when related
+    activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 34
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-01'
+    source: GOV-POL-900
+- rule_id: R-1094
+  title: Labs Ledger control
+  description: Standard labs ledger handling applied automatically when related activity
+    is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 25
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1095
+  title: Records Notification control
+  description: Standard records notification handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 38
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1096
+  title: Travel Review Cycle control
+  description: Standard travel review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 49
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1097
+  title: Elevated risk review
+  description: Requests a second pair of eyes before elevated-risk services are provisioned.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 50
+  effects:
+  - kind: require_security_review
+  priority: 60
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-12-12'
+    source: SEC-POL-121
+- rule_id: R-1098
+  title: Wellness Escalation Ladder control
+  description: Standard wellness escalation ladder handling applied automatically
+    when related activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 28
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1099
+  title: Shared desk segregation
+  description: Heavier services cannot coexist with the shared desk utility.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 50
+  - kind: employee_has_entitlement
+    application_id: APP-SHR
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-SHR
+  priority: 86
+  status: inactive
+  provenance:
+    owner: finance-controls
+    effective_date: '2026-06-12'
+    source: FIN-POL-055
+- rule_id: R-1100
+  title: Parking Review Cycle control
+  description: Standard parking review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 33
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1101
+  title: Mentorship Escalation Ladder control
+  description: Standard mentorship escalation ladder handling applied automatically
+    when related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 44
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-13'
+    source: GOV-POL-900
+- rule_id: R-1102
+  title: Badge Escalation Ladder control
+  description: Standard badge escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 32
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-22'
+    source: GOV-POL-900
+- rule_id: R-1103
+  title: Approval credit release
+  description: Approved requests settle part of the accumulated load.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -10
+  priority: 60
+  status: active
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-08-17'
+    source: SEC-POL-102
+- rule_id: R-1104
+  title: Parking Ledger control
+  description: Standard parking ledger handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 43
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1105
+  title: Records Ledger control
+  description: Standard records ledger handling applied automatically when related
+    activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 28
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1106
+  title: Bid confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 86
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-BID
+- rule_id: R-1107
+  title: Wellness Audit Trail archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 22
+  status: inactive
+  provenance:
+    owner: governance
+    effective_date: '2026-11-11'
+    source: GOV-POL-950
+- rule_id: R-1108
+  title: Alumni Review Cycle control
+  description: Standard alumni review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 31
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1109
+  title: Studio Review Cycle control
+  description: Standard studio review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 52
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-19'
+    source: GOV-POL-900
+- rule_id: R-1110
+  title: Alumni Notification control
+  description: Standard alumni notification handling applied automatically when related
+    activity is recorded.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 51
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-01-25'
+    source: GOV-POL-900
+- rule_id: R-1111
+  title: Records Review Cycle control
+  description: Standard records review cycle handling applied automatically when related
+    activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 48
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-900
+- rule_id: R-1112
+  title: Shr confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 88
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-SHR
+- rule_id: R-1113
+  title: Mentorship Review Cycle control
+  description: Standard mentorship review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: role_assigned
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 3
+  priority: 54
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-07-07'
+    source: GOV-POL-900
+- rule_id: R-1114
+  title: Approval settlement penalty
+  description: Approvals granted above the threshold settle against payroll first.
+  trigger: approval_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-PAY
+  priority: 95
+  status: inactive
+  provenance:
+    owner: payroll
+    effective_date: '2026-02-08'
+    source: FIN-POL-041
+- rule_id: R-1115
+  title: Universal provisioning confirmation
+  description: Every access grant waits for a second person to confirm it.
+  trigger: access_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: require_security_review
+  priority: 93
+  status: inactive
+  provenance:
+    owner: security
+    effective_date: '2026-10-16'
+    source: SEC-POL-160
+- rule_id: R-1116
+  title: Routine request hygiene
+  description: Approved routine requests keep records aligned with policy.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -2
+  priority: 40
+  status: active
+  provenance:
+    owner: service-desk
+    effective_date: '2026-04-25'
+    source: SD-POL-021
+- rule_id: R-1117
+  title: Training Review Cycle control
+  description: Standard training review cycle handling applied automatically when
+    related activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 2
+  priority: 50
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1118
+  title: Labs Reminder Schedule archive control
+  description: Retired or paused configuration retained for historical reporting.
+  trigger: approval_granted
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 23
+  status: superseded
+  provenance:
+    owner: governance
+    effective_date: '2026-04-16'
+    source: GOV-POL-950
+- rule_id: R-1119
+  title: Exit threshold review
+  description: Exits above the threshold drop clearance to the minimum.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 60
+  status: active
+  provenance:
+    owner: security
+    effective_date: '2026-06-15'
+    source: SEC-POL-140
+- rule_id: R-1120
+  title: Library Escalation Ladder control
+  description: Standard library escalation ladder handling applied automatically when
+    related activity is recorded.
+  trigger: access_revoked
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 37
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1121
+  title: Role change load rebalance
+  description: Applies a standard load adjustment whenever a person changes role.
+  trigger: role_assigned
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 15
+  priority: 90
+  status: active
+  provenance:
+    owner: hr-systems
+    effective_date: '2026-02-14'
+    source: HR-POL-044
+- rule_id: R-1122
+  title: Shared desk continuity sweep
+  description: When external staff exit, the shared desk utility is rotated across
+    the roster.
+  trigger: employee_offboarded
+  conditions:
+  - kind: employee_is_contractor
+  effects:
+  - kind: revoke_entitlement_globally
+    application_id: APP-SHR
+  priority: 92
+  status: inactive
+  provenance:
+    owner: service-desk
+    effective_date: '2026-06-27'
+    source: SD-POL-030
+- rule_id: R-1123
+  title: Payroll entitlement integrity
+  description: Removes payroll access from people whose clearance sits below the role
+    requirement.
+  trigger: access_granted
+  conditions:
+  - kind: clearance_below_role_required
+  - kind: employee_has_entitlement
+    application_id: APP-PAY
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-PAY
+  priority: 70
+  status: active
+  provenance:
+    owner: payroll
+    effective_date: '2026-10-10'
+    source: FIN-POL-020
+- rule_id: R-1124
+  title: Connectivity wind-down
+  description: Personal remote access closes with the engagement window.
+  trigger: employee_offboarded
+  conditions:
+  - kind: always
+  effects:
+  - kind: revoke_entitlement
+    application_id: APP-VPN
+  priority: 80
+  status: active
+  provenance:
+    owner: it-facilities
+    effective_date: '2026-04-13'
+    source: IT-POL-210
+- rule_id: R-1125
+  title: Facilities Ledger control
+  description: Standard facilities ledger handling applied automatically when related
+    activity is recorded.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: 80
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: -1
+  priority: 44
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+- rule_id: R-1126
+  title: Print Notification control
+  description: Standard print notification handling applied automatically when related
+    activity is recorded.
+  trigger: employee_offboarded
+  conditions:
+  - kind: risk_load_at_least_threshold
+  effects:
+  - kind: set_clearance
+    level: 1
+  priority: 46
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-10-10'
+    source: GOV-POL-900
+- rule_id: R-1127
+  title: Crm confirmation gate
+  description: Provisioning this service records a confirmation step first.
+  trigger: access_granted
+  conditions:
+  - kind: event_application_risk_above
+    value: -1
+  effects:
+  - kind: require_security_review
+  priority: 90
+  status: inactive
+  provenance:
+    owner: iam-platform
+    effective_date: '2026-11-17'
+    source: RVW-POL-APP-CRM
+- rule_id: R-1128
+  title: Alumni Ledger control
+  description: Standard alumni ledger handling applied automatically when related
+    activity is recorded.
+  trigger: onboarding_completed
+  conditions:
+  - kind: always
+  effects:
+  - kind: adjust_risk_load
+    source: static
+    value: 1
+  priority: 41
+  status: active
+  provenance:
+    owner: governance
+    effective_date: '2026-04-04'
+    source: GOV-POL-900
+generator_seed: 20260822

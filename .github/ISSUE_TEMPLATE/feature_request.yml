@@ -1,0 +1,22 @@
+name: Improvement proposal
+description: Propose a focused improvement to the software or documentation.
+title: "proposal: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Suggest an improvement to the research prototype. Use synthetic examples and distinguish software changes from evidence needed for a new research claim.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the concrete user or maintainer problem.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change and how it can be tested.
+    validations:
+      required: true
